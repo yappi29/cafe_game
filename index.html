@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お願いがあります</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    font-family:sans-serif;
+    background:#fff5f7;
+}
+
+.container{
+    text-align:center;
+    margin-top:80px;
+}
+
+h1{
+    color:#ff4d6d;
+    padding:0 20px;
+}
+
+#yes,#no{
+    position:absolute;
+    width:100px;
+    height:60px;
+    border:none;
+    border-radius:15px;
+    font-size:24px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+#yes{
+    background:#ff4d6d;
+    color:white;
+    left:35%;
+    top:300px;
+}
+
+#no{
+    background:#666;
+    color:white;
+    left:55%;
+    top:300px;
+}
+
+#success{
+    display:none;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+}
+
+#success h2{
+    font-size:40px;
+    color:#ff4d6d;
+}
+
+#success p{
+    font-size:24px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>☕ カフェ一緒に行ってくれますか？ ☕</h1>
+</div>
+
+<button id="yes">○</button>
+<button id="no">✕</button>
+
+<div id="success">
+<h2>やったー！！🎉</h2>
+<p>今度予定決めようね！☕✨</p>
+</div>
+
+<script>
+
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+
+let escapeCount = 0;
+let yesScale = 1;
+
+function moveNoButton(){
+
+    const maxX = window.innerWidth - 120;
+    const maxY = window.innerHeight - 100;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    escapeCount++;
+
+    yesScale += 0.15;
+    yesBtn.style.transform = `scale(${yesScale})`;
+
+    if(escapeCount >= 10){
+        noBtn.style.display = "none";
+    }
+}
+
+noBtn.addEventListener("mouseenter", moveNoButton);
+noBtn.addEventListener("touchstart", function(e){
+    e.preventDefault();
+    moveNoButton();
+});
+
+yesBtn.addEventListener("click", () => {
+
+    document.getElementById("success").style.display = "block";
+
+    yesBtn.style.display = "none";
+    noBtn.style.display = "none";
+
+    document.querySelector(".container").style.display = "none";
+});
+
+</script>
+
+</body>
+</html>
